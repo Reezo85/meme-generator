@@ -1,53 +1,204 @@
+/* ==== Global styles ==== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: sans-serif;
-  background-color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-}
-form {
-  margin-bottom: 20px;
-}
-input {
-  margin: 5px;
-  padding: 10px;
-}
-#meme-container {
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+  color: #f9fafb;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
+  padding: 2rem;
 }
+
+/* ==== App Layout ==== */
+
+.app-wrapper {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+  padding: 2.5rem 2.25rem 2rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  font-size: clamp(1.9rem, 3vw, 2.3rem);
+  letter-spacing: 0.05em;
+}
+
+.app-header .emoji {
+  font-size: 1.5rem;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+/* ==== Form ==== */
+
+.app-main {
+  display: grid;
+  gap: 2rem;
+}
+
+.meme-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 1.5rem;
+  align-items: end;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-row label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+}
+
+.meme-form input[type="text"],
+.meme-form input[type="url"] {
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.8);
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.meme-form input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+  background: rgba(15, 23, 42, 1);
+}
+
+.meme-form button {
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #f9fafb;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  justify-self: flex-start;
+  margin-top: 0.4rem;
+  box-shadow: 0 10px 25px rgba(21, 128, 61, 0.5);
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    filter 0.12s ease;
+}
+
+.meme-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 35px rgba(21, 128, 61, 0.65);
+  filter: brightness(1.02);
+}
+
+.meme-form button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 8px 16px rgba(21, 128, 61, 0.4);
+}
+
+/* ==== Meme display ==== */
+
+.meme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
 .meme {
   position: relative;
-  display: inline-block;
-  margin: 10px;
+  border-radius: 0.9rem;
+  overflow: hidden;
+  background: #020617;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
 }
+
 .meme img {
-  max-width: 300px;
-  height: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+/* Text overlay for memes (assuming your JS adds these classes) */
+
 .meme-text {
   position: absolute;
-  width: 100%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.5em;
-  text-shadow: 2px 2px 4px #000;
   left: 50%;
   transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-text-stroke: 1px #000;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9);
+  padding: 0.25rem 0.4rem;
 }
-.top {
-  top: 10px;
+
+.meme-text.top {
+  top: 0.6rem;
 }
-.bottom {
-  bottom: 10px;
+
+.meme-text.bottom {
+  bottom: 0.6rem;
 }
-.delete-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: red;
-  color: white;
-  border: none;
-  padding: 5px;
-  cursor: pointer;
+
+/* ==== Footer ==== */
+
+.app-footer {
+  margin-top: 1.75rem;
+  border-top: 1px solid rgba(55, 65, 81, 0.7);
+  padding-top: 0.75rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ==== Small screens ==== */
+
+@media (max-width: 600px) {
+  .app-wrapper {
+    padding: 1.75rem 1.25rem 1.5rem;
+  }
+
+  .meme-form {
+    grid-template-columns: 1fr;
+  }
+
+  .meme-form button {
+    width: 100%;
+    justify-self: stretch;
+  }
 }
